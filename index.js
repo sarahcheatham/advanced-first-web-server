@@ -41,12 +41,26 @@ app.post("/users/:userId", function(req, res){
 app.put("/users/:userId", function(req, res){
   if (req.params.userId <= usersCount){
     users.map((item, index)=>{
-      return item._id == req.params.userId ? item.name = "Mr. Rogers" : item.name = item.name
+      return item._id == req.params.userId ? item.name = req.body.name : item.name = item.name
     })
     return res.json(users[req.params.userId - 1])
   } else {
-    return res.json('user not found')
+    res.json('user not found')
   } 
+})
+
+//Deletes a user from the user object with the userId path
+app.delete("/users/:userId", function(req, res){
+  users.map((item, index)=>{
+    if (item._id == req.params.userId){
+      item._id = index + 1;
+      users.splice(index, 1)
+      res.json(users)
+      res.json('deleted')
+    } else {
+      res.json('user not found')
+    }
+  })
 })
 
 //Default function if the user types in a wrong path
