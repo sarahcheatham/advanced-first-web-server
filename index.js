@@ -45,7 +45,7 @@ app.put("/users/:userId", function(req, res){
     })
     return res.json(users[req.params.userId - 1])
   } else {
-    res.json('user not found')
+    return res.json('user not found')
   } 
 })
 
