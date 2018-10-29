@@ -54,8 +54,9 @@ app.delete("/users/:userId", function(req, res){
   users.map((item, index)=>{
     if (item._id == req.params.userId){
       item._id = index + 1;
-      users.splice(index, 1)
-      res.json(users)
+      req.params.userId.isActive = false;
+      // users.splice(index, 1)
+      // res.json(users)
       res.json('deleted')
     } else {
       res.json('user not found')
